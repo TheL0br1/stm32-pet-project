@@ -28,8 +28,8 @@
  * with STM32CubeMX.
  *
  * Steps to use this library:
- * 1) Import this library into your code (!)
- *
+ * 1) Importlibrary into your code (!)
+ * this
  * 2) Configure your pins using set function: LCD_setRST(PORT, PIN)
  * 						   					  LCD_setCE(PORT, PIN)
  * 						   					  LCD_setDC(PORT, PIN)
