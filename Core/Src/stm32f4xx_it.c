@@ -41,8 +41,8 @@
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
-uint8_t i =-1;
-int readValue[10];
+extern int8_t i;
+extern int readValue[10];
 
 /* USER CODE END PV */
 
@@ -226,6 +226,7 @@ void TIM2_IRQHandler(void)
   HAL_TIM_IRQHandler(&htim2);
   /* USER CODE BEGIN TIM2_IRQn 1 */
     i++;
+    HAL_ADC_PollForConversion(&hadc1, 100);
     readValue[i] = HAL_ADC_GetValue(&hadc1);
     if(i>=9){
         i=-1;

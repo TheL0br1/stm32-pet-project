@@ -68,19 +68,23 @@ static void MX_DMA_Init(void);
 static void MX_ADC1_Init(void);
 static void MX_TIM1_Init(void);
 static void MX_TIM2_Init(void);
+int avg_();
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-int readValue[10];
 int maxValue;
 
 const int minValue = 2100;
 int buffer;
 
 /* USER CODE END 0 */
+
+int8_t i;
+
+int readValue[];
 
 /**
   * @brief  The application entry point.
@@ -115,7 +119,7 @@ int main(void)
   MX_TIM1_Init();
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
-    HAL_ADC_Start_IT (&hadc1);
+    HAL_ADC_Start(&hadc1);
     HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
     HAL_TIM_Base_Start_IT(&htim2);
 	HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2);
@@ -160,13 +164,14 @@ int main(void)
 //			TIM1->CCR2 = 0; //blue
 //			TIM1->CCR3 = 0; //green
 //		}
-		int tempValue = max(avg() - minValue,0);
-		TIM1->CCR1 = tempRed = min(tempValue/3, 100); //red
-	    TIM1->CCR2 = tempBlue = min(tempValue/3, 100); //blue
-		TIM1->CCR3 = tempGreen = min(tempValue/3, 100); //green
-		if(tempValue > 0){
-		    HAL_Delay(20);
+		int tempValue = max(avg_() - minValue,0);
+		TIM1->CCR1 = min(tempValue/3, 100); //red
+	    TIM1->CCR2  = min(tempValue/3, 100); //blue
+		TIM1->CCR3 = min(tempValue/3, 100); //green
+		if(tempValue>0){
+		HAL_Delay(10);
 		}
+
 	}
   /* USER CODE END 3 */
 }
@@ -247,7 +252,7 @@ static void MX_ADC1_Init(void)
   hadc1.Init.DataAlign = ADC_DATAALIGN_RIGHT;
   hadc1.Init.NbrOfConversion = 1;
   hadc1.Init.DMAContinuousRequests = DISABLE;
-  hadc1.Init.EOCSelection = ADC_EOC_SINGLE_CONV;
+  hadc1.Init.EOCSelection = EOC_SEQ_CONV;
   if (HAL_ADC_Init(&hadc1) != HAL_OK)
   {
     Error_Handler();
@@ -370,7 +375,7 @@ static void MX_TIM2_Init(void)
 
   /* USER CODE END TIM2_Init 1 */
   htim2.Instance = TIM2;
-  htim2.Init.Prescaler = 8400-1;
+  htim2.Init.Prescaler = 840-1;
   htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
   htim2.Init.Period = 10-1;
   htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
@@ -464,18 +469,8 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
-{
-    if(hadc == &hadc1) {
-    	i++;
-        readValue[i] = HAL_ADC_GetValue(&hadc1);
-        if(i>=9){
-        	i=-1;
-        }
-    }
-    /*If continuousconversion mode is DISABLED uncomment below*/
-}
-int avg(){
+
+int avg_(){
     int res = 0;
     for(int i_ = 0; i_ < 10; i_++){
         res+=readValue[i_];

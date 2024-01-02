@@ -20,21 +20,11 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="03d22c75-db7b-49c6-b14b-113ff29d4fe1" name="Changes" comment="added adc with microphone amplifier; added falling down led mode with polling">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="03d22c75-db7b-49c6-b14b-113ff29d4fe1" name="Changes" comment="test interrupt adc handling with tim2">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Inc/font.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/font.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Inc/main.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/main.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Inc/nokia5110_LCD.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/nokia5110_LCD.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Inc/stm32f4xx_hal_conf.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/stm32f4xx_hal_conf.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/Inc/stm32f4xx_it.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/stm32f4xx_it.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/Src/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/main.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Src/nokia5110_LCD.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/nokia5110_LCD.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Src/stm32f4xx_hal_msp.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/stm32f4xx_hal_msp.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/Src/stm32f4xx_it.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/stm32f4xx_it.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Src/syscalls.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/syscalls.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Src/sysmem.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/sysmem.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Src/system_stm32f4xx.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/system_stm32f4xx.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Debug/Core/Src/main.cyclo" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/Core/Src/main.cyclo" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Debug/Core/Src/main.d" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/Core/Src/main.d" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Debug/Core/Src/main.o" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/Core/Src/main.o" afterDir="false" />
@@ -45,17 +35,9 @@
       <change beforePath="$PROJECT_DIR$/Debug/Core/Src/stm32f4xx_it.cyclo" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/Core/Src/stm32f4xx_it.cyclo" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Debug/Core/Src/stm32f4xx_it.o" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/Core/Src/stm32f4xx_it.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Debug/Core/Src/stm32f4xx_it.su" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/Core/Src/stm32f4xx_it.su" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Debug/Core/Src/syscalls.cyclo" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/Core/Src/syscalls.cyclo" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Debug/Core/Src/syscalls.o" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/Core/Src/syscalls.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Debug/Core/Src/syscalls.su" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/Core/Src/syscalls.su" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Debug/Core/Src/sysmem.o" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/Core/Src/sysmem.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Debug/Core/Src/system_stm32f4xx.cyclo" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/Core/Src/system_stm32f4xx.cyclo" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Debug/Core/Src/system_stm32f4xx.o" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/Core/Src/system_stm32f4xx.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Debug/Core/Src/system_stm32f4xx.su" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/Core/Src/system_stm32f4xx.su" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Debug/led-project.elf" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/led-project.elf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Debug/led-project.list" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/led-project.list" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Debug/led-project.map" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/led-project.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/led-project.ioc" beforeDir="false" afterPath="$PROJECT_DIR$/led-project.ioc" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,6 +49,11 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="2ZfhSWDTN4r6ExeUzX2Wrzx2xEW" />
@@ -103,6 +90,11 @@
     </key>
   </component>
   <component name="RunManager">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="STM32CubeIDE.elf" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="STM32CubeIDE" TARGET_NAME="STM32CubeIDE.elf" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="STM32CubeIDE" RUN_TARGET_NAME="STM32CubeIDE.elf">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -129,7 +121,7 @@
       <workItem from="1703530046134" duration="3789000" />
       <workItem from="1703765826569" duration="381000" />
       <workItem from="1703879622125" duration="4520000" />
-      <workItem from="1704135327526" duration="4435000" />
+      <workItem from="1704135327526" duration="5801000" />
     </task>
     <task id="LOCAL-00001" summary="added adc with microphone amplifier; added falling down led mode with polling">
       <created>1703766032740</created>
@@ -138,7 +130,14 @@
       <option name="project" value="LOCAL" />
       <updated>1703766032740</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="test interrupt adc handling with tim2">
+      <created>1704235820842</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1704235820842</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -161,7 +160,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="master" />
+                        <option value="test" />
                       </list>
                     </value>
                   </entry>
@@ -175,6 +174,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="added adc with microphone amplifier; added falling down led mode with polling" />
-    <option name="LAST_COMMIT_MESSAGE" value="added adc with microphone amplifier; added falling down led mode with polling" />
+    <MESSAGE value="test interrupt adc handling with tim2" />
+    <option name="LAST_COMMIT_MESSAGE" value="test interrupt adc handling with tim2" />
   </component>
 </project>
