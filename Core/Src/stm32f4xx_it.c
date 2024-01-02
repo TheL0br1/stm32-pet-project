@@ -31,7 +31,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-
+#define BUFSIZE 10
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -42,7 +42,7 @@
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
 extern int8_t i;
-extern int readValue[10];
+extern int readValue[BUFSIZE];
 
 /* USER CODE END PV */
 
@@ -225,11 +225,11 @@ void TIM2_IRQHandler(void)
   /* USER CODE END TIM2_IRQn 0 */
   HAL_TIM_IRQHandler(&htim2);
   /* USER CODE BEGIN TIM2_IRQn 1 */
-    i++;
     HAL_ADC_PollForConversion(&hadc1, 100);
     readValue[i] = HAL_ADC_GetValue(&hadc1);
-    if(i>=9){
-        i=-1;
+    i++;
+    if(i>=BUFSIZE){
+        i=0;
     }
   /* USER CODE END TIM2_IRQn 1 */
 }

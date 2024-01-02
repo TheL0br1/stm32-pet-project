@@ -164,12 +164,12 @@ int main(void)
 //			TIM1->CCR2 = 0; //blue
 //			TIM1->CCR3 = 0; //green
 //		}
-		int tempValue = max(avg_() - minValue,0);
-		TIM1->CCR1 = min(tempValue/3, 100); //red
-	    TIM1->CCR2  = min(tempValue/3, 100); //blue
-		TIM1->CCR3 = min(tempValue/3, 100); //green
-		if(tempValue>0){
-		HAL_Delay(10);
+		if(i==9){
+			int tempValue = max(avg_() - minValue,0);
+			TIM1->CCR1 = min(tempValue/3, 100); //red
+			TIM1->CCR2  = min(tempValue/3, 100); //blue
+			TIM1->CCR3 = min(tempValue/3, 100); //green
+
 		}
 
 	}
