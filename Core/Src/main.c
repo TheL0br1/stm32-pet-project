@@ -1,20 +1,20 @@
 /* USER CODE BEGIN Header */
 /**
-  ******************************************************************************
-  * @file           : main.c
-  * @brief          : Main program body
-  ******************************************************************************
-  * @attention
-  *
-  * Copyright (c) 2023 STMicroelectronics.
-  * All rights reserved.
-  *
-  * This software is licensed under terms that can be found in the LICENSE file
-  * in the root directory of this software component.
-  * If no LICENSE file comes with this software, it is provided AS-IS.
-  *
-  ******************************************************************************
-  */
+ ******************************************************************************
+ * @file           : main.c
+ * @brief          : Main program body
+ ******************************************************************************
+ * @attention
+ *
+ * Copyright (c) 2023 STMicroelectronics.
+ * All rights reserved.
+ *
+ * This software is licensed under terms that can be found in the LICENSE file
+ * in the root directory of this software component.
+ * If no LICENSE file comes with this software, it is provided AS-IS.
+ *
+ ******************************************************************************
+ */
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
@@ -22,7 +22,10 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "nokia5110_LCD.h"
+#include "../Inc/main.h"
 #include <stdlib.h>
+#include <stdio.h>
+#include "stm32f4xx_it.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -36,6 +39,10 @@
    ({ __typeof__ (a) _a = (a); \
        __typeof__ (b) _b = (b); \
      _a < _b ? _a : _b; })
+#define max(a,b) \
+   ({ __typeof__ (a) _a = (a); \
+       __typeof__ (b) _b = (b); \
+     _a > _b ? _a : _b; })
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -45,8 +52,10 @@
 
 /* Private variables ---------------------------------------------------------*/
 ADC_HandleTypeDef hadc1;
+DMA_HandleTypeDef hdma_adc1;
 
 TIM_HandleTypeDef htim1;
+TIM_HandleTypeDef htim2;
 
 /* USER CODE BEGIN PV */
 
@@ -55,21 +64,21 @@ TIM_HandleTypeDef htim1;
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
+static void MX_DMA_Init(void);
 static void MX_ADC1_Init(void);
 static void MX_TIM1_Init(void);
+static void MX_TIM2_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-uint16_t readValue;
-uint16_t maxValue;
+int readValue[10];
+int maxValue;
 
-const uint16_t minValue = 2100;
-uint16_t tempRed;
-uint16_t tempBlue;
-uint16_t tempGreen;
+const int minValue = 2100;
+int buffer;
 
 /* USER CODE END 0 */
 
@@ -101,48 +110,64 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_DMA_Init();
   MX_ADC1_Init();
   MX_TIM1_Init();
+  MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
-  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
-  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2);
-  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_3);
+    HAL_ADC_Start_IT (&hadc1);
+    HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
+    HAL_TIM_Base_Start_IT(&htim2);
+	HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2);
+	HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_3);
+	LCD_setRST(GPIOC, GPIO_PIN_4);
+	LCD_setCE(GPIOC, GPIO_PIN_5);
+	LCD_setDC(GPIOB, GPIO_PIN_0);
+	LCD_setDIN(GPIOA, GPIO_PIN_7);
+	LCD_setCLK(GPIOA, GPIO_PIN_5);
+	LCD_init();
 
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  while (1)
-  {
+	while (1) {
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	HAL_ADC_Start(&hadc1);
-	HAL_ADC_PollForConversion(&hadc1, 1000);
-	readValue = HAL_ADC_GetValue(&hadc1);
-
-	if(readValue > (minValue+300)){
-		readValue -= minValue;
-		TIM1->CCR1 = tempRed = min(readValue,100); //red
-		TIM1->CCR2 = tempBlue = min(readValue,100); //blue
-		TIM1->CCR3 = tempGreen = min(readValue,100); //green
-		HAL_Delay(500);
-
-		for(int i = min(readValue,100); i >= 0; i--){
-			TIM1->CCR1 = i; //red
-			TIM1->CCR2 = i; //blue
-			TIM1->CCR3 = i; //green
-			HAL_Delay(12);
-
+//		if (readValue > (minValue + 300)) {
+//			uint16_t tempValue = (uint16_t) (readValue - minValue);
+//			TIM1->CCR1 = tempRed = min(tempValue, 100); //red
+//			TIM1->CCR2 = tempBlue = min(tempValue, 100); //blue
+//			TIM1->CCR3 = tempGreen = min(tempValue, 100); //green
+//            LCD_clrScr();
+//            sprintf(displayStr,"%d;%d;%d", tempRed, tempGreen, tempBlue);
+//            LCD_print(displayStr, 0,2);
+//            HAL_Delay(200);
+//
+//			for (int i = min(readValue, 100); i >= 0; i--) {
+//				TIM1->CCR1 = i; //red
+//				TIM1->lCCR2 = i; //blue
+////				TIM1->CCR3 = i; //green
+////                LCD_clrScr();
+////                sprintf(dispayStr,"%d;%d;%d", i, i, i);
+//                LCD_print(displayStr, 4,2);
+//				HAL_Delay(3);
+//
+//			}
+//		} else {
+//			TIM1->CCR1 = 0; //red
+//			TIM1->CCR2 = 0; //blue
+//			TIM1->CCR3 = 0; //green
+//		}
+		int tempValue = max(avg() - minValue,0);
+		TIM1->CCR1 = tempRed = min(tempValue/3, 100); //red
+	    TIM1->CCR2 = tempBlue = min(tempValue/3, 100); //blue
+		TIM1->CCR3 = tempGreen = min(tempValue/3, 100); //green
+		if(tempValue > 0){
+		    HAL_Delay(20);
 		}
-	}else{
-	TIM1->CCR1 =0; //red
-	TIM1->CCR2 = 0; //blue
-	TIM1->CCR3 = 0; //green
 	}
-
-
-  }
   /* USER CODE END 3 */
 }
 
@@ -183,7 +208,7 @@ void SystemClock_Config(void)
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;
-  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
+  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV16;
 
   if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_2) != HAL_OK)
   {
@@ -212,7 +237,7 @@ static void MX_ADC1_Init(void)
   /** Configure the global features of the ADC (Clock, Resolution, Data Alignment and number of conversion)
   */
   hadc1.Instance = ADC1;
-  hadc1.Init.ClockPrescaler = ADC_CLOCK_SYNC_PCLK_DIV4;
+  hadc1.Init.ClockPrescaler = ADC_CLOCK_SYNC_PCLK_DIV8;
   hadc1.Init.Resolution = ADC_RESOLUTION_12B;
   hadc1.Init.ScanConvMode = DISABLE;
   hadc1.Init.ContinuousConvMode = ENABLE;
@@ -266,7 +291,7 @@ static void MX_TIM1_Init(void)
   htim1.Instance = TIM1;
   htim1.Init.Prescaler = 80-1;
   htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim1.Init.Period = 250-1;
+  htim1.Init.Period = 100-1;
   htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim1.Init.RepetitionCounter = 0;
   htim1.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
@@ -327,6 +352,67 @@ static void MX_TIM1_Init(void)
 }
 
 /**
+  * @brief TIM2 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_TIM2_Init(void)
+{
+
+  /* USER CODE BEGIN TIM2_Init 0 */
+
+  /* USER CODE END TIM2_Init 0 */
+
+  TIM_ClockConfigTypeDef sClockSourceConfig = {0};
+  TIM_MasterConfigTypeDef sMasterConfig = {0};
+
+  /* USER CODE BEGIN TIM2_Init 1 */
+
+  /* USER CODE END TIM2_Init 1 */
+  htim2.Instance = TIM2;
+  htim2.Init.Prescaler = 8400-1;
+  htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim2.Init.Period = 10-1;
+  htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  if (HAL_TIM_Base_Init(&htim2) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+  if (HAL_TIM_ConfigClockSource(&htim2, &sClockSourceConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim2, &sMasterConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN TIM2_Init 2 */
+
+  /* USER CODE END TIM2_Init 2 */
+
+}
+
+/**
+  * Enable DMA controller clock
+  */
+static void MX_DMA_Init(void)
+{
+
+  /* DMA controller clock enable */
+  __HAL_RCC_DMA2_CLK_ENABLE();
+
+  /* DMA interrupt init */
+  /* DMA2_Stream0_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA2_Stream0_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(DMA2_Stream0_IRQn);
+
+}
+
+/**
   * @brief GPIO Initialization Function
   * @param None
   * @retval None
@@ -378,7 +464,24 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-
+void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
+{
+    if(hadc == &hadc1) {
+    	i++;
+        readValue[i] = HAL_ADC_GetValue(&hadc1);
+        if(i>=9){
+        	i=-1;
+        }
+    }
+    /*If continuousconversion mode is DISABLED uncomment below*/
+}
+int avg(){
+    int res = 0;
+    for(int i_ = 0; i_ < 10; i_++){
+        res+=readValue[i_];
+    }
+    return (res/10);
+}
 /* USER CODE END 4 */
 
 /**
@@ -388,11 +491,10 @@ static void MX_GPIO_Init(void)
 void Error_Handler(void)
 {
   /* USER CODE BEGIN Error_Handler_Debug */
-  /* User can add his own implementation to report the HAL error return state */
-  __disable_irq();
-  while (1)
-  {
-  }
+	/* User can add his own implementation to report the HAL error return state */
+	__disable_irq();
+	while (1) {
+	}
   /* USER CODE END Error_Handler_Debug */
 }
 
