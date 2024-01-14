@@ -15,8 +15,8 @@ struct  LED_GPIO{
 };
 
 /*LED_GPIO constructor */
-struct LED_GPIO Init_LED(   GPIO_TypeDef RPort, uint16_t RPin, GPIO_TypeDef GPort,
-                            uint16_t GPin, GPIO_TypeDef BPort, uint16_t BPin){
+struct LED_GPIO Init_LED(GPIO_TypeDef RPort, uint16_t RPin, GPIO_TypeDef GPort,
+                         uint16_t GPin, GPIO_TypeDef BPort, uint16_t BPin) {
     struct LED_GPIO a;
     a.RPort = RPort;
     a.RPin = RPin;
@@ -26,6 +26,8 @@ struct LED_GPIO Init_LED(   GPIO_TypeDef RPort, uint16_t RPin, GPIO_TypeDef GPor
     a.BPin = BPin;
     return a;
 }
+/*Function declaration*/
+
 
 
 

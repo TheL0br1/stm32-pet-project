@@ -21,18 +21,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="03d22c75-db7b-49c6-b14b-113ff29d4fe1" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations/OCD_led_project.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.mxproject" beforeDir="false" afterPath="$PROJECT_DIR$/.mxproject" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Inc/nokia5110_LCD.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/nokia5110_LCD.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Inc/nokia5110_LCD.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/nokia5110_LCD.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Inc/RGB_led.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/RGB_led.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/Inc/stm32f4xx_hal_conf.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/stm32f4xx_hal_conf.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Inc/stm32f4xx_it.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/stm32f4xx_it.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/Src/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/main.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/Src/stm32f4xx_hal_msp.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/stm32f4xx_hal_msp.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Debug/Core/Inc/nokia5110_LCD.cyclo" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Debug/Core/Inc/nokia5110_LCD.d" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Debug/Core/Inc/nokia5110_LCD.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Debug/Core/Inc/nokia5110_LCD.su" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Debug/Core/Inc/subdir.mk" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/Core/Inc/subdir.mk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/stm32f4xx_it.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/stm32f4xx_it.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Debug/Core/Src/main.cyclo" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/Core/Src/main.cyclo" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Debug/Core/Src/main.d" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/Core/Src/main.d" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Debug/Core/Src/main.o" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/Core/Src/main.o" afterDir="false" />
@@ -41,9 +40,10 @@
       <change beforePath="$PROJECT_DIR$/Debug/Core/Src/stm32f4xx_hal_msp.d" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/Core/Src/stm32f4xx_hal_msp.d" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Debug/Core/Src/stm32f4xx_hal_msp.o" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/Core/Src/stm32f4xx_hal_msp.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Debug/Core/Src/stm32f4xx_hal_msp.su" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/Core/Src/stm32f4xx_hal_msp.su" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Debug/Core/Src/stm32f4xx_it.cyclo" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/Core/Src/stm32f4xx_it.cyclo" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Debug/Core/Src/stm32f4xx_it.d" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/Core/Src/stm32f4xx_it.d" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Debug/Core/Src/stm32f4xx_it.o" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/Core/Src/stm32f4xx_it.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Debug/Core/Src/subdir.mk" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/Core/Src/subdir.mk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Debug/Core/Src/stm32f4xx_it.su" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/Core/Src/stm32f4xx_it.su" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Debug/Core/Src/system_stm32f4xx.d" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/Core/Src/system_stm32f4xx.d" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Debug/Core/Src/system_stm32f4xx.o" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/Core/Src/system_stm32f4xx.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Debug/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.d" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.d" afterDir="false" />
@@ -76,10 +76,6 @@
       <change beforePath="$PROJECT_DIR$/Debug/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.o" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Debug/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.d" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.d" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Debug/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.o" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Debug/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.cyclo" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Debug/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.d" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Debug/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Debug/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.su" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Debug/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.d" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.d" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Debug/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.o" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Debug/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.d" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.d" afterDir="false" />
@@ -88,12 +84,7 @@
       <change beforePath="$PROJECT_DIR$/Debug/led-project.elf" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/led-project.elf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Debug/led-project.list" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/led-project.list" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Debug/led-project.map" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/led-project.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Debug/makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/makefile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Debug/objects.list" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/objects.list" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Debug/sources.mk" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/sources.mk" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_spi.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.c" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/led-project.ioc" beforeDir="false" afterPath="$PROJECT_DIR$/led-project.ioc" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -106,6 +97,11 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="test" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="2ZfhSWDTN4r6ExeUzX2Wrzx2xEW" />
@@ -119,15 +115,17 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
     &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/User/STM32CubeIDE/workspace_1.14.0/led-project&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/User/STM32CubeIDE/workspace_1.14.0/led-project/led-project.ioc&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.cidr.embedded.config&quot;,
+    &quot;serialMonitor.commands&quot;: &quot;AT+UART=9600,0,0\nAT+UART?\nAT+UART=9600,1,2\nAT+UART=115200,1,2\nAT\n2\n1\nmm\nhm\nhello&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;serialmonitor.settings&quot;,
     &quot;structure.view.defaults.are.configured&quot;: &quot;true&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
@@ -137,13 +135,13 @@
       <recent name="C:\Users\User\STM32CubeIDE\workspace_1.14.0\led-project\Core\Src" />
     </key>
   </component>
-  <component name="RunManager">
-    <configuration name="STM32CubeIDE.elf" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="STM32CubeIDE" TARGET_NAME="STM32CubeIDE.elf" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="STM32CubeIDE" RUN_TARGET_NAME="STM32CubeIDE.elf">
+  <component name="RunManager" selected="OpenOCD Download &amp; Run.OCD led-project">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+    <configuration name="STM32CubeIDE.elf" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="led-project" TARGET_NAME="STM32CubeIDE.elf" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="led-project" RUN_TARGET_NAME="STM32CubeIDE.elf">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -154,6 +152,10 @@
         <option name="com.jetbrains.cidr.cpp.runfile.CppFileBuildBeforeRunTaskProvider$BasicBuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="CMake Application.STM32CubeIDE.elf" />
+      <item itemvalue="OpenOCD Download &amp; Run.OCD led-project" />
+    </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -167,6 +169,12 @@
       <workItem from="1702855639443" duration="1297000" />
       <workItem from="1703141855660" duration="4492000" />
       <workItem from="1703530046134" duration="3789000" />
+      <workItem from="1704883091129" duration="2208000" />
+      <workItem from="1704918336488" duration="6518000" />
+      <workItem from="1705134344801" duration="476000" />
+      <workItem from="1705135671585" duration="8321000" />
+      <workItem from="1705228256969" duration="1415000" />
+      <workItem from="1705252763818" duration="4852000" />
     </task>
     <servers />
   </component>
@@ -178,5 +186,36 @@
     <isAutomaticCheckingOnLaunch value="false" />
     <isAutomaticFoundErrors value="true" />
     <isAutomaticFoundErrors value="true" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/Core/Src/main.c</url>
+          <line>368</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/Core/Src/main.c</url>
+          <line>537</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

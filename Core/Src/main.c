@@ -21,13 +21,9 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include <stdbool.h>
 #include "nokia5110_LCD.h"
-#include "../Inc/main.h"
-#include <stdlib.h>
-#include <stdio.h>
+
 #include <string.h>
-#include "stm32f4xx_it.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -37,17 +33,17 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-#define BUFSIZE 10
-
+#define BUFSIZE 100
+#define UARTBUFSIZE 10
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-#define min(a,b) \
+#define min(a, b) \
    ({ __typeof__ (a) _a = (a); \
        __typeof__ (b) _b = (b); \
      _a < _b ? _a : _b; })
-#define max(a,b) \
+#define max(a, b) \
    ({ __typeof__ (a) _a = (a); \
        __typeof__ (b) _b = (b); \
      _a > _b ? _a : _b; })
@@ -60,34 +56,40 @@ DMA_HandleTypeDef hdma_adc1;
 TIM_HandleTypeDef htim1;
 TIM_HandleTypeDef htim2;
 
-UART_HandleTypeDef huart2;
-UART_HandleTypeDef huart6;
+UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN PV */
-
+const int minValue = 2100;
+int buffer;
+uint8_t UARTRecieveBuffer[UARTBUFSIZE];
+int8_t i;
+int8_t UARTBufIterator;
+int readValue[BUFSIZE];
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
+
 static void MX_GPIO_Init(void);
+
 static void MX_DMA_Init(void);
+
 static void MX_ADC1_Init(void);
+
 static void MX_TIM1_Init(void);
+
 static void MX_TIM2_Init(void);
-static void MX_USART2_UART_Init(void);
-static void MX_USART6_UART_Init(void);
+
+static void MX_USART1_UART_Init(void);
+
 /* USER CODE BEGIN PFP */
+
 static int avg_(void);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-int maxValue;
 
-const int minValue = 2100;
-int buffer;
-int8_t i;
-int readValue[BUFSIZE];
 
 /* USER CODE END 0 */
 
@@ -117,29 +119,29 @@ int main(void)
 
   /* USER CODE END SysInit */
 
-  /* Initialize all configured peripherals */
-  MX_GPIO_Init();
-  MX_DMA_Init();
-  MX_ADC1_Init();
-  MX_TIM1_Init();
-  MX_TIM2_Init();
-  MX_USART2_UART_Init();
-  MX_USART6_UART_Init();
-  /* USER CODE BEGIN 2 */
+    /* Initialize all configured peripherals */
+    MX_GPIO_Init();
+    MX_DMA_Init();
+    MX_ADC1_Init();
+    MX_TIM1_Init();
+    MX_TIM2_Init();
+    MX_USART1_UART_Init();
+    /* USER CODE BEGIN 2 */
     HAL_ADC_Start(&hadc1);
+    HAL_UART_Receive_IT(&huart1, &UARTRecieveBuffer[UARTBufIterator++], 1);
+
     HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
-    HAL_TIM_Base_Start_IT(&htim2);
-	HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2);
-	HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_3);
-	LCD_setRST(GPIOC, GPIO_PIN_4);
-	LCD_setCE(GPIOC, GPIO_PIN_5);
-	LCD_setDC(GPIOB, GPIO_PIN_0);
-	LCD_setDIN(GPIOA, GPIO_PIN_7);
-	LCD_setCLK(GPIOA, GPIO_PIN_5);
+    //   HAL_TIM_Base_Start_IT(&htim2);
+    HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2);
+    HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_3);
+    LCD_setRST(GPIOC, GPIO_PIN_4);
+    LCD_setCE(GPIOC, GPIO_PIN_5);
+    LCD_setDC(GPIOB, GPIO_PIN_0);
+    LCD_setDIN(GPIOA, GPIO_PIN_7);
+    LCD_setCLK(GPIOA, GPIO_PIN_5);
 	LCD_init();
-	uint8_t Test[] = "Hello World !!!\r\n"; //Data to send
-	HAL_UART_Transmit(&huart2,Test,sizeof(Test),100);// Sending in normal mode
   /* USER CODE END 2 */
+
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 	while (1) {
@@ -171,19 +173,17 @@ int main(void)
 //			TIM1->CCR2 = 0; //blue
 //			TIM1->CCR3 = 0; //green
 //		}
-		int tempValue = max(avg_() - minValue,0);
-		TIM1->CCR1 = min(tempValue/3, 100); //red
-		TIM1->CCR2  = min(tempValue/3, 100); //blue
-		TIM1->CCR3 = min(tempValue/3, 100); //green
-		if(tempValue > 10){
-			//HAL_Delay(10);
-		}
-//		uint8_t buf[] = "hello man\r\n";
-//		HAL_UART_Transmit(&huart2, buf, sizeof(buf), 10);
-//		HAL_UART_Transmit(&huart6, buf, sizeof(buf), 10);
-//		HAL_Delay(100);
-
-	}
+//		int tempValue = max(avg_() - minValue,0);
+//		TIM1->CCR1 = min(tempValue/3, 100); //red
+//		TIM1->CCR2  = min(tempValue/3, 100); //blue
+//		TIM1->CCR3 = min(tempValue/3, 100); //green
+//		if(tempValue > 10){
+//			HAL_Delay(40);
+//		}
+        uint8_t buf[] = "AT";
+        HAL_UART_Transmit(&huart1, (uint8_t *) buf, sizeof(buf), 100);
+        HAL_Delay(1000);
+    }
   /* USER CODE END 3 */
 }
 
@@ -194,37 +194,37 @@ int main(void)
 void SystemClock_Config(void)
 {
   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
-  RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+    RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
 
-  /** Configure the main internal regulator output voltage
-  */
-  __HAL_RCC_PWR_CLK_ENABLE();
-  __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE2);
+    /** Configure the main internal regulator output voltage
+    */
+    __HAL_RCC_PWR_CLK_ENABLE();
+    __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE2);
 
-  /** Initializes the RCC Oscillators according to the specified parameters
-  * in the RCC_OscInitTypeDef structure.
-  */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
-  RCC_OscInitStruct.HSEState = RCC_HSE_ON;
-  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
-  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
-  RCC_OscInitStruct.PLL.PLLM = 25;
-  RCC_OscInitStruct.PLL.PLLN = 168;
-  RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
-  RCC_OscInitStruct.PLL.PLLQ = 4;
-  if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
-  {
-    Error_Handler();
-  }
+    /** Initializes the RCC Oscillators according to the specified parameters
+    * in the RCC_OscInitTypeDef structure.
+    */
+    RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
+    RCC_OscInitStruct.HSIState = RCC_HSI_ON;
+    RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
+    RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
+    RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
+    RCC_OscInitStruct.PLL.PLLM = 8;
+    RCC_OscInitStruct.PLL.PLLN = 84;
+    RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
+    RCC_OscInitStruct.PLL.PLLQ = 4;
+    if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK) {
+        Error_Handler();
+    }
 
-  /** Initializes the CPU, AHB and APB buses clocks
-  */
-  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
+    /** Initializes the CPU, AHB and APB buses clocks
+    */
+    RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_SYSCLK
                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
-  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;
-  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV16;
+    RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;
+    RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV2;
 
   if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_2) != HAL_OK)
   {
@@ -262,8 +262,8 @@ static void MX_ADC1_Init(void)
   hadc1.Init.ExternalTrigConv = ADC_SOFTWARE_START;
   hadc1.Init.DataAlign = ADC_DATAALIGN_RIGHT;
   hadc1.Init.NbrOfConversion = 1;
-  hadc1.Init.DMAContinuousRequests = DISABLE;
-  hadc1.Init.EOCSelection = EOC_SEQ_CONV;
+    hadc1.Init.DMAContinuousRequests = DISABLE;
+    hadc1.Init.EOCSelection = ADC_EOC_SINGLE_CONV;
   if (HAL_ADC_Init(&hadc1) != HAL_OK)
   {
     Error_Handler();
@@ -304,11 +304,11 @@ static void MX_TIM1_Init(void)
   /* USER CODE BEGIN TIM1_Init 1 */
 
   /* USER CODE END TIM1_Init 1 */
-  htim1.Instance = TIM1;
-  htim1.Init.Prescaler = 80-1;
-  htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim1.Init.Period = 230-1;
-  htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+    htim1.Instance = TIM1;
+    htim1.Init.Prescaler = 84 - 1;
+    htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
+    htim1.Init.Period = 250 - 1;
+    htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim1.Init.RepetitionCounter = 0;
   htim1.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
   if (HAL_TIM_Base_Init(&htim1) != HAL_OK)
@@ -385,9 +385,9 @@ static void MX_TIM2_Init(void)
   /* USER CODE BEGIN TIM2_Init 1 */
 
   /* USER CODE END TIM2_Init 1 */
-  htim2.Instance = TIM2;
-  htim2.Init.Prescaler = 84000-1;
-  htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
+    htim2.Instance = TIM2;
+    htim2.Init.Prescaler = 840 - 1;
+    htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
   htim2.Init.Period = 10-1;
   htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
@@ -413,68 +413,33 @@ static void MX_TIM2_Init(void)
 }
 
 /**
-  * @brief USART2 Initialization Function
+  * @brief USART1 Initialization Function
   * @param None
   * @retval None
   */
-static void MX_USART2_UART_Init(void)
-{
+static void MX_USART1_UART_Init(void) {
 
-  /* USER CODE BEGIN USART2_Init 0 */
+    /* USER CODE BEGIN USART1_Init 0 */
 
-  /* USER CODE END USART2_Init 0 */
+    /* USER CODE END USART1_Init 0 */
 
-  /* USER CODE BEGIN USART2_Init 1 */
+    /* USER CODE BEGIN USART1_Init 1 */
 
-  /* USER CODE END USART2_Init 1 */
-  huart2.Instance = USART2;
-  huart2.Init.BaudRate = 9600;
-  huart2.Init.WordLength = UART_WORDLENGTH_8B;
-  huart2.Init.StopBits = UART_STOPBITS_1;
-  huart2.Init.Parity = UART_PARITY_NONE;
-  huart2.Init.Mode = UART_MODE_TX_RX;
-  huart2.Init.HwFlowCtl = UART_HWCONTROL_NONE;
-  huart2.Init.OverSampling = UART_OVERSAMPLING_16;
-  if (HAL_UART_Init(&huart2) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /* USER CODE BEGIN USART2_Init 2 */
+    /* USER CODE END USART1_Init 1 */
+    huart1.Instance = USART1;
+    huart1.Init.BaudRate = 9600;
+    huart1.Init.WordLength = UART_WORDLENGTH_8B;
+    huart1.Init.StopBits = UART_STOPBITS_1;
+    huart1.Init.Parity = UART_PARITY_NONE;
+    huart1.Init.Mode = UART_MODE_TX_RX;
+    huart1.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+    huart1.Init.OverSampling = UART_OVERSAMPLING_16;
+    if (HAL_UART_Init(&huart1) != HAL_OK) {
+        Error_Handler();
+    }
+    /* USER CODE BEGIN USART1_Init 2 */
 
-  /* USER CODE END USART2_Init 2 */
-
-}
-
-/**
-  * @brief USART6 Initialization Function
-  * @param None
-  * @retval None
-  */
-static void MX_USART6_UART_Init(void)
-{
-
-  /* USER CODE BEGIN USART6_Init 0 */
-
-  /* USER CODE END USART6_Init 0 */
-
-  /* USER CODE BEGIN USART6_Init 1 */
-
-  /* USER CODE END USART6_Init 1 */
-  huart6.Instance = USART6;
-  huart6.Init.BaudRate = 9600;
-  huart6.Init.WordLength = UART_WORDLENGTH_8B;
-  huart6.Init.StopBits = UART_STOPBITS_1;
-  huart6.Init.Parity = UART_PARITY_NONE;
-  huart6.Init.Mode = UART_MODE_TX_RX;
-  huart6.Init.HwFlowCtl = UART_HWCONTROL_NONE;
-  huart6.Init.OverSampling = UART_OVERSAMPLING_16;
-  if (HAL_UART_Init(&huart6) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /* USER CODE BEGIN USART6_Init 2 */
-
-  /* USER CODE END USART6_Init 2 */
+    /* USER CODE END USART1_Init 2 */
 
 }
 
@@ -546,12 +511,26 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-int avg_(){
-    int res = 0;
-    for(int i_ = 0; i_ < BUFSIZE; i_++){
-        res+=readValue[i_];
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
+    if (huart->Instance == USART1) {
+        // Process the received data here
+        // ...
+        if (UARTRecieveBuffer[UARTBufIterator - 1] == '\0') {
+            memset(UARTRecieveBuffer, 0, sizeof(UARTRecieveBuffer));
+            UARTBufIterator = 0;
+        }
+        // Restart reception for the next byte
     }
-    return (res/BUFSIZE);
+    HAL_UART_Receive_IT(&huart1, &UARTRecieveBuffer[UARTBufIterator++], 1);
+
+}
+
+int avg_() {
+    int res = 0;
+    for (int i_ = 0; i_ < BUFSIZE; i_++) {
+        res += readValue[i_];
+    }
+    return (res / BUFSIZE);
 }
 /* USER CODE END 4 */
 
