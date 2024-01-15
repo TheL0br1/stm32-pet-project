@@ -31,17 +31,17 @@ struct RGB {
 };
 
 // Array of RGB values corresponding to each color
-struct RGB colorValues[NUM_COLORS] = {
-        {255, 0, 0},      // RED
-        {0, 255, 0},      // GREEN
-        {0, 0, 255},      // BLUE
+static const struct RGB colorValues[NUM_COLORS] = {
+        {255, 0,   0},      // RED
+        {0,   255, 0},      // GREEN
+        {0,   0,   255},      // BLUE
         {255, 255, 0},    // YELLOW
-        {255, 0, 255},    // MAGENTA
-        {0, 255, 255},    // CYAN
+        {255, 0,   255},    // MAGENTA
+        {0,   255, 255},    // CYAN
         {255, 255, 255},  // WHITE
-        {0, 0, 0},        // BLACK
+        {0,   0,   0},        // BLACK
         {255, 165, 0},    // ORANGE
-        {128, 0, 128},    // PURPLE
+        {128, 0,   128},    // PURPLE
         {255, 192, 203},  // PINK
         {165, 42, 42},    // BROWN
         // Add more color values as needed

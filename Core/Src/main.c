@@ -24,6 +24,7 @@
 #include "nokia5110_LCD.h"
 
 #include <string.h>
+#include "RGB_led.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -61,7 +62,7 @@ UART_HandleTypeDef huart1;
 /* USER CODE BEGIN PV */
 const int minValue = 2100;
 int buffer;
-uint8_t UARTRecieveBuffer[UARTBUFSIZE];
+char UARTRecieveBuffer[UARTBUFSIZE];
 int8_t i;
 int8_t UARTBufIterator;
 int readValue[BUFSIZE];
@@ -128,7 +129,7 @@ int main(void)
     MX_USART1_UART_Init();
     /* USER CODE BEGIN 2 */
     HAL_ADC_Start(&hadc1);
-    HAL_UART_Receive_IT(&huart1, &UARTRecieveBuffer[UARTBufIterator++], 1);
+    HAL_UART_Receive_IT(&huart1, (uint8_t *) &UARTRecieveBuffer[UARTBufIterator++], 1);
 
     HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
     //   HAL_TIM_Base_Start_IT(&htim2);
@@ -139,15 +140,18 @@ int main(void)
     LCD_setDC(GPIOB, GPIO_PIN_0);
     LCD_setDIN(GPIOA, GPIO_PIN_7);
     LCD_setCLK(GPIOA, GPIO_PIN_5);
-	LCD_init();
-  /* USER CODE END 2 */
+    LCD_init();
+    TIM1->CCR1 = 90;
+    TIM1->CCR2 = 90;
+    TIM1->CCR3 = 90;
+    /* USER CODE END 2 */
 
-  /* Infinite loop */
-  /* USER CODE BEGIN WHILE */
-	while (1) {
-    /* USER CODE END WHILE */
+    /* Infinite loop */
+    /* USER CODE BEGIN WHILE */
+    while (1) {
+        /* USER CODE END WHILE */
 
-    /* USER CODE BEGIN 3 */
+        /* USER CODE BEGIN 3 */
 //		if (readValue > (minValue + 300)) {
 //			uint16_t tempValue = (uint16_t) (readValue - minValue);
 //			TIM1->CCR1 = tempRed = min(tempValue, 100); //red
@@ -516,12 +520,13 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
         // Process the received data here
         // ...
         if (UARTRecieveBuffer[UARTBufIterator - 1] == '\0') {
+            parse_string(UARTRecieveBuffer);
             memset(UARTRecieveBuffer, 0, sizeof(UARTRecieveBuffer));
             UARTBufIterator = 0;
         }
         // Restart reception for the next byte
     }
-    HAL_UART_Receive_IT(&huart1, &UARTRecieveBuffer[UARTBufIterator++], 1);
+    HAL_UART_Receive_IT(&huart1, (uint8_t *) &UARTRecieveBuffer[UARTBufIterator++], 1);
 
 }
 
