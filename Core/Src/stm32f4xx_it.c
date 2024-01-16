@@ -43,7 +43,7 @@
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
 extern uint8_t LedMode;
-extern uint16_t microphone;
+extern int16_t microphoneValue;
 
 
 
@@ -65,6 +65,8 @@ extern DMA_HandleTypeDef hdma_adc1;
 extern TIM_HandleTypeDef htim2;
 extern TIM_HandleTypeDef htim3;
 extern UART_HandleTypeDef huart1;
+extern ADC_HandleTypeDef hadc1;
+
 /* USER CODE BEGIN EV */
 
 /* USER CODE END EV */
@@ -210,10 +212,11 @@ void SysTick_Handler(void)
   */
 void TIM2_IRQHandler(void) {
     /* USER CODE BEGIN TIM2_IRQn 0 */
-
     /* USER CODE END TIM2_IRQn 0 */
     HAL_TIM_IRQHandler(&htim2);
     /* USER CODE BEGIN TIM2_IRQn 1 */
+    HAL_ADC_PollForConversion(&hadc1, 100);
+    microphoneValue = HAL_ADC_GetValue(&hadc1);
 
     /* USER CODE END TIM2_IRQn 1 */
 }
@@ -235,6 +238,9 @@ void TIM3_IRQHandler(void) {
             break;
         case 3:
             LED_randomColorMode();
+            break;
+        case 4:
+            LED_microphoneMode();
             break;
     }
     /* USER CODE END TIM3_IRQn 0 */

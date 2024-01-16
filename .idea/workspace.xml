@@ -20,19 +20,14 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="03d22c75-db7b-49c6-b14b-113ff29d4fe1" name="Changes" comment="extended LED modes throught adding 2 continuous modes with changeable time which uses tim3 with interrupt">
+    <list default="true" id="03d22c75-db7b-49c6-b14b-113ff29d4fe1" name="Changes" comment="some code refactoring">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Inc/RGB_led.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/RGB_led.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Inc/colors.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/colors.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/Src/RGB_led.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/RGB_led.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/Src/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/main.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/Src/stm32f4xx_it.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/stm32f4xx_it.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Debug/Core/Src/main.cyclo" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/Core/Src/main.cyclo" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Debug/Core/Src/main.o" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/Core/Src/main.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Debug/Core/Src/main.su" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/Core/Src/main.su" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Debug/Core/Src/stm32f4xx_hal_msp.cyclo" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/Core/Src/stm32f4xx_hal_msp.cyclo" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Debug/Core/Src/stm32f4xx_hal_msp.o" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/Core/Src/stm32f4xx_hal_msp.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Debug/Core/Src/stm32f4xx_hal_msp.su" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/Core/Src/stm32f4xx_hal_msp.su" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Debug/Core/Src/stm32f4xx_it.cyclo" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/Core/Src/stm32f4xx_it.cyclo" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Debug/Core/Src/stm32f4xx_it.o" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/Core/Src/stm32f4xx_it.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Debug/Core/Src/stm32f4xx_it.su" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/Core/Src/stm32f4xx_it.su" afterDir="false" />
@@ -57,6 +52,7 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RESET_MODE" value="HARD" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="ProjectId" id="2ZfhSWDTN4r6ExeUzX2Wrzx2xEW" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -78,6 +74,7 @@
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
     "serialMonitor.commands": "m0;5;2\nm0;5;0.1\nm0;5;1\nm0;8;1\nm1;3\nm1;1\nc0\nc1\nAT+UART=9600,0,0\nAT+UART?",
     "settings.editor.selected.configurable": "serialmonitor.settings",
     "structure.view.defaults.are.configured": "true",
@@ -129,7 +126,7 @@
       <workItem from="1705135671585" duration="8321000" />
       <workItem from="1705228256969" duration="1415000" />
       <workItem from="1705252763818" duration="17475000" />
-      <workItem from="1705396502623" duration="4403000" />
+      <workItem from="1705396502623" duration="7711000" />
     </task>
     <task id="LOCAL-00001" summary="created base communication with bluetooth hc-05 module with uart using interrupt">
       <created>1705273331689</created>
@@ -173,7 +170,21 @@
       <option name="project" value="LOCAL" />
       <updated>1705365785666</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="some code refactoring">
+      <created>1705418105030</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1705418105030</updated>
+    </task>
+    <task id="LOCAL-00008" summary="some code refactoring">
+      <created>1705418325089</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1705418325089</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -197,11 +208,15 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_CLEANUP_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="CHECK_NEW_TODO" value="false" />
     <MESSAGE value="created base communication with bluetooth hc-05 module with uart using interrupt" />
     <MESSAGE value="updated .gitignore" />
     <MESSAGE value="added base string parser and some function to set color. one throught rgb, other using colors.h structure" />
     <MESSAGE value="extended LED modes throught adding 2 continuous modes with changeable time which uses tim3 with interrupt" />
-    <option name="LAST_COMMIT_MESSAGE" value="extended LED modes throught adding 2 continuous modes with changeable time which uses tim3 with interrupt" />
+    <MESSAGE value="some code refactoring" />
+    <option name="LAST_COMMIT_MESSAGE" value="some code refactoring" />
+    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -209,7 +224,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/Core/Src/main.c</url>
-          <line>334</line>
+          <line>333</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">

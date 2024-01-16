@@ -3,17 +3,33 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
+#include <limits.h>
+
+
+#define min(a, b) \
+   ({ __typeof__ (a) _a = (a); \
+       __typeof__ (b) _b = (b); \
+     _a < _b ? _a : _b; })
+#define max(a, b) \
+   ({ __typeof__ (a) _a = (a); \
+       __typeof__ (b) _b = (b); \
+     _a > _b ? _a : _b; })
+
 
 #define ARR_DIV 2.55
 #define ARR_1SECOND_VALUE 100
 #define CCR_MAX_VALUE 100
+#define ADC_NOISE_VALUE 2070
+#define ADC_DIV 1
 
 
 extern TIM_HandleTypeDef htim3;
+extern TIM_HandleTypeDef htim2;
 static uint8_t pulseCounter;
 static uint8_t currentColor;
 static float pulseFrequency;
 uint8_t LedMode;
+int16_t microphoneValue;
 
 //util function to change timer frequency
 void update_arr(TIM_HandleTypeDef *htim, uint16_t arr) {
@@ -26,6 +42,8 @@ void update_arr(TIM_HandleTypeDef *htim, uint16_t arr) {
 
 void parseString(char *input) {
     HAL_TIM_Base_Stop_IT(&htim3);
+    HAL_TIM_Base_Stop_IT(&htim2);
+
     char *token;
     switch (input[0]) {
         case 'c':
@@ -62,6 +80,12 @@ void parseString(char *input) {
                     HAL_TIM_Base_Start_IT(&htim3);
                     break;
                 case 4:
+                    token = strtok(NULL, ";");
+                    currentColor = strtoul(token, NULL, 10);
+                    token = strtok(NULL, ";");
+                    pulseFrequency = strtof(token, NULL);
+                    update_arr(&htim3, pulseFrequency * ARR_1SECOND_VALUE);
+                    HAL_TIM_Base_Start_IT(&htim2);
                     HAL_TIM_Base_Start_IT(&htim3);
                     break;
             }
@@ -139,5 +163,14 @@ void LED_randomColorMode() {
 }
 
 void LED_microphoneMode() {
-
+    pulseCounter++;
+    if (pulseCounter >= CCR_MAX_VALUE) {
+        pulseCounter = 0;
+        TIM1->CCR1 = min(100, max(0, microphoneValue - ADC_NOISE_VALUE)) /
+                     ADC_DIV * ((float) colorValues[currentColor].red / (float) UCHAR_MAX);
+        TIM1->CCR2 = min(100, max(0, microphoneValue - ADC_NOISE_VALUE)) /
+                     ADC_DIV * ((float) colorValues[currentColor].green / (float) UCHAR_MAX);
+        TIM1->CCR3 = min(100, max(0, microphoneValue - ADC_NOISE_VALUE)) /
+                     ADC_DIV * ((float) colorValues[currentColor].blue / (float) UCHAR_MAX);
+    }
 }
