@@ -14,7 +14,6 @@ enum Color {
     MAGENTA,
     CYAN,
     WHITE,
-    BLACK,
     ORANGE,
     PURPLE,
     PINK,
@@ -39,7 +38,6 @@ static const struct RGB colorValues[NUM_COLORS] = {
         {255, 0,   255},    // MAGENTA
         {0,   255, 255},    // CYAN
         {255, 255, 255},  // WHITE
-        {0,   0,   0},        // BLACK
         {255, 165, 0},    // ORANGE
         {128, 0,   128},    // PURPLE
         {255, 192, 203},  // PINK

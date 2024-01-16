@@ -19,4 +19,10 @@ void LED_continuousTransformationMode();
 
 void LED_pulseMode();
 
+void LED_continuousColorChangeMode();
+
+void LED_randomColorMode();
+
+void LED_microphoneMode();
+
 #endif //LED_PROJECT_RGB_LED_H

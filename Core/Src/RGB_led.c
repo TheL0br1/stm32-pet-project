@@ -26,12 +26,13 @@ void update_arr(TIM_HandleTypeDef *htim, uint16_t arr) {
 
 void parseString(char *input) {
     HAL_TIM_Base_Stop_IT(&htim3);
+    char *token;
     switch (input[0]) {
         case 'c':
             LED_setColor(strtoul(&input[1], NULL, 10));
             break;
         case 'm': {
-            char *token = strtok(input, ";");
+            token = strtok(input, ";");
             LedMode = strtoul(&token[1], NULL, 10);
             switch (LedMode) {
                 case 0:
@@ -48,19 +49,35 @@ void parseString(char *input) {
                     update_arr(&htim3, pulseFrequency * ARR_1SECOND_VALUE);
                     HAL_TIM_Base_Start_IT(&htim3);
                     break;
+                case 2:
+                    token = strtok(NULL, ";");
+                    pulseFrequency = strtof(token, NULL);
+                    update_arr(&htim3, pulseFrequency * ARR_1SECOND_VALUE);
+                    HAL_TIM_Base_Start_IT(&htim3);
+                    break;
+                case 3:
+                    token = strtok(NULL, ";");
+                    pulseFrequency = strtof(token, NULL);
+                    update_arr(&htim3, pulseFrequency * ARR_1SECOND_VALUE);
+                    HAL_TIM_Base_Start_IT(&htim3);
+                    break;
+                case 4:
+
             }
         }
+        default:
+            token = strtok(input, ";");
+            uint8_t var1 = strtoul(token, NULL, 10);
+            token = strtok(NULL, ";");
+
+            uint8_t var2 = strtoul(token, NULL, 10);
+            token = strtok(NULL, ";");
+
+            uint8_t var3 = strtoul(token, NULL, 10);
+            LED_setColorRGB(var1, var2, var3);
     }
 
-//    char* token = strtok(input, ";");
-//    uint8_t var1 = strtoul(token, NULL, 10);
-//    token = strtok(NULL, ";");
-//
-//    uint8_t var2 = strtoul(token, NULL, 10);
-//    token = strtok(NULL, ";");
-//
-//    uint8_t var3 = strtoul(token, NULL, 10);
-//    LED_setColorRGB(var1, var2, var3);
+
 
 }
 
@@ -87,6 +104,18 @@ void LED_pulseMode() {
 }
 
 void LED_continuousTransformationMode() {
+    TIM1->CCR1 = colorValues[currentColor].red / ARR_DIV - pulseCounter;
+    TIM1->CCR2 = colorValues[currentColor].green / ARR_DIV - pulseCounter;
+    TIM1->CCR3 = colorValues[currentColor].blue / ARR_DIV - pulseCounter;
+    pulseCounter++;
+    if (pulseCounter >= CCR_MAX_VALUE) {
+        pulseCounter = 0;
+        currentColor++;
+        currentColor %= 11;
+    }
+}
+
+void LED_continuousColorChangeMode() {
     TIM1->CCR1 = colorValues[currentColor].red / ARR_DIV;
     TIM1->CCR2 = colorValues[currentColor].green / ARR_DIV;
     TIM1->CCR3 = colorValues[currentColor].blue / ARR_DIV;
@@ -96,4 +125,18 @@ void LED_continuousTransformationMode() {
         currentColor++;
         currentColor %= 12;
     }
+}
+
+void LED_randomColorMode() {
+    pulseCounter++;
+    if (pulseCounter >= CCR_MAX_VALUE) {
+        pulseCounter = 0;
+        TIM1->CCR1 = rand() % 100;
+        TIM1->CCR2 = rand() % 100;
+        TIM1->CCR3 = rand() % 100;
+    }
+}
+
+void LED_microphoneMode() {
+
 }

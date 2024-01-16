@@ -42,8 +42,8 @@
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
-extern int8_t i;
 extern uint8_t LedMode;
+extern uint16_t
 
 
 
@@ -229,6 +229,12 @@ void TIM3_IRQHandler(void) {
             break;
         case 1:
             LED_continuousTransformationMode();
+            break;
+        case 2:
+            LED_continuousColorChangeMode();
+            break;
+        case 3:
+            LED_randomColorMode();
             break;
     }
     /* USER CODE END TIM3_IRQn 0 */

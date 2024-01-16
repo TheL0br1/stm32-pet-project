@@ -23,6 +23,7 @@
 /* USER CODE BEGIN Includes */
 #include "nokia5110_LCD.h"
 #include <string.h>
+#include <stdlib.h>
 #include "RGB_led.h"
 /* USER CODE END Includes */
 
@@ -60,12 +61,8 @@ TIM_HandleTypeDef htim3;
 UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN PV */
-const int minValue = 2100;
-int buffer;
 char UARTRecieveBuffer[UARTBUFSIZE];
-int8_t i;
 int8_t UARTBufIterator;
-int readValue[BUFSIZE];
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -130,7 +127,6 @@ int main(void)
     HAL_UART_Receive_IT(&huart1, (uint8_t *) &UARTRecieveBuffer[UARTBufIterator++], 1);
 
     HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
-    //   HAL_TIM_Base_Start_IT(&htim2);
     HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2);
     HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_3);
     LCD_setRST(GPIOC, GPIO_PIN_4);
@@ -139,6 +135,7 @@ int main(void)
     LCD_setDIN(GPIOA, GPIO_PIN_7);
     LCD_setCLK(GPIOA, GPIO_PIN_5);
     LCD_init();
+    srand(0);
     /* USER CODE END 2 */
 
     /* Infinite loop */
@@ -147,41 +144,10 @@ int main(void)
         /* USER CODE END WHILE */
 
         /* USER CODE BEGIN 3 */
-//		if (readValue > (minValue + 300)) {
-//			uint16_t tempValue = (uint16_t) (readValue - minValue);
-//			TIM1->CCR1 = tempRed = min(tempValue, 100); //red
-//			TIM1->CCR2 = tempBlue = min(tempValue, 100); //blue
-//			TIM1->CCR3 = tempGreen = min(tempValue, 100); //green
-//            LCD_clrScr();
-//            sprintf(displayStr,"%d;%d;%d", tempRed, tempGreen, tempBlue);
-//            LCD_print(displayStr, 0,2);
-//            HAL_Delay(200);
-//
-//			for (int i = min(readValue, 100); i >= 0; i--) {
-//				TIM1->CCR1 = i; //red
-//				TIM1->lCCR2 = i; //blue
-////				TIM1->CCR3 = i; //green
-////                LCD_clrScr();
-////                sprintf(dispayStr,"%d;%d;%d", i, i, i);
-//                LCD_print(displayStr, 4,2);
-//				HAL_Delay(3);
-//
-//			}
-//		} else {
-//			TIM1->CCR1 = 0; //red
-//			TIM1->CCR2 = 0; //blue
-//			TIM1->CCR3 = 0; //green
-//		}
-//		int tempValue = max(avg_() - minValue,0);
-//		TIM1->CCR1 = min(tempValue/3, 100); //red
-//		TIM1->CCR2  = min(tempValue/3, 100); //blue
-//		TIM1->CCR3 = min(tempValue/3, 100); //green
-//		if(tempValue > 10){
-//			HAL_Delay(40);
-//		}
-        uint8_t buf[] = "AT";
-        HAL_UART_Transmit(&huart1, (uint8_t *) buf, sizeof(buf), 100);
-        HAL_Delay(1000);
+        /*test bluetooth communication */
+//        uint8_t buf[] = "W";
+//        HAL_UART_Transmit(&huart1, (uint8_t *) buf, sizeof(buf), 100);
+//        HAL_Delay(1000);
     }
   /* USER CODE END 3 */
 }
@@ -547,7 +513,8 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
     if (huart->Instance == USART1) {
         // Process the received data here
         // ...
-        if (UARTRecieveBuffer[UARTBufIterator - 1] == '\0') {
+        if (UARTRecieveBuffer[UARTBufIterator - 1] == '\0' || UARTRecieveBuffer[UARTBufIterator - 1] == '\r' ||
+            UARTRecieveBuffer[UARTBufIterator - 1] == '\n') {
             parseString(UARTRecieveBuffer);
             memset(UARTRecieveBuffer, 0, sizeof(UARTRecieveBuffer));
             UARTBufIterator = 0;
@@ -556,14 +523,6 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
     }
     HAL_UART_Receive_IT(&huart1, (uint8_t *) &UARTRecieveBuffer[UARTBufIterator++], 1);
 
-}
-
-int avg_() {
-    int res = 0;
-    for (int i_ = 0; i_ < BUFSIZE; i_++) {
-        res += readValue[i_];
-    }
-    return (res / BUFSIZE);
 }
 /* USER CODE END 4 */
 
