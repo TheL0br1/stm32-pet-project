@@ -44,7 +44,7 @@
 /* USER CODE BEGIN PV */
 extern uint8_t LedMode;
 extern int16_t microphoneValue;
-
+extern uint8_t displayMode;
 
 
 

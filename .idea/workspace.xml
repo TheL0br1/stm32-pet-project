@@ -20,17 +20,18 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="03d22c75-db7b-49c6-b14b-113ff29d4fe1" name="Changes" comment="some code refactoring">
+    <list default="true" id="03d22c75-db7b-49c6-b14b-113ff29d4fe1" name="Changes" comment="added microphone mode that uses tim3 interrupt and adc polling">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Inc/RGB_led.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/RGB_led.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/Src/RGB_led.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/RGB_led.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/Src/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/main.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/Src/stm32f4xx_it.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/stm32f4xx_it.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Debug/Core/Src/main.cyclo" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/Core/Src/main.cyclo" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Debug/Core/Src/main.d" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/Core/Src/main.d" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Debug/Core/Src/main.o" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/Core/Src/main.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Debug/Core/Src/main.su" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/Core/Src/main.su" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Debug/Core/Src/stm32f4xx_it.cyclo" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/Core/Src/stm32f4xx_it.cyclo" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Debug/Core/Src/stm32f4xx_it.d" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/Core/Src/stm32f4xx_it.d" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Debug/Core/Src/stm32f4xx_it.o" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/Core/Src/stm32f4xx_it.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Debug/Core/Src/stm32f4xx_it.su" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/Core/Src/stm32f4xx_it.su" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Debug/led-project.elf" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/led-project.elf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Debug/led-project.list" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/led-project.list" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Debug/led-project.map" beforeDir="false" afterPath="$PROJECT_DIR$/Debug/led-project.map" afterDir="false" />
@@ -126,7 +127,7 @@
       <workItem from="1705135671585" duration="8321000" />
       <workItem from="1705228256969" duration="1415000" />
       <workItem from="1705252763818" duration="17475000" />
-      <workItem from="1705396502623" duration="7711000" />
+      <workItem from="1705396502623" duration="13681000" />
     </task>
     <task id="LOCAL-00001" summary="created base communication with bluetooth hc-05 module with uart using interrupt">
       <created>1705273331689</created>
@@ -184,7 +185,14 @@
       <option name="project" value="LOCAL" />
       <updated>1705418325089</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="added microphone mode that uses tim3 interrupt and adc polling">
+      <created>1705421471561</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1705421471561</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -215,7 +223,8 @@
     <MESSAGE value="added base string parser and some function to set color. one throught rgb, other using colors.h structure" />
     <MESSAGE value="extended LED modes throught adding 2 continuous modes with changeable time which uses tim3 with interrupt" />
     <MESSAGE value="some code refactoring" />
-    <option name="LAST_COMMIT_MESSAGE" value="some code refactoring" />
+    <MESSAGE value="added microphone mode that uses tim3 interrupt and adc polling" />
+    <option name="LAST_COMMIT_MESSAGE" value="added microphone mode that uses tim3 interrupt and adc polling" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
@@ -224,12 +233,12 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/Core/Src/main.c</url>
-          <line>333</line>
+          <line>325</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/Core/Src/main.c</url>
-          <line>531</line>
+          <line>523</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>

@@ -34,20 +34,11 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-#define BUFSIZE 100
 #define UARTBUFSIZE 10
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-#define min(a, b) \
-   ({ __typeof__ (a) _a = (a); \
-       __typeof__ (b) _b = (b); \
-     _a < _b ? _a : _b; })
-#define max(a, b) \
-   ({ __typeof__ (a) _a = (a); \
-       __typeof__ (b) _b = (b); \
-     _a > _b ? _a : _b; })
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -79,7 +70,6 @@ static void MX_TIM3_Init(void);
 
 /* USER CODE BEGIN PFP */
 
-static int avg_(void);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -147,6 +137,7 @@ int main(void)
 //        uint8_t buf[] = "W";
 //        HAL_UART_Transmit(&huart1, (uint8_t *) buf, sizeof(buf), 100);
 //        HAL_Delay(1000);
+
     }
   /* USER CODE END 3 */
 }

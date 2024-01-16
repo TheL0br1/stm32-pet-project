@@ -7,9 +7,16 @@
 #include <stdio.h>
 #include "stm32f4xx_hal.h"
 #include "colors.h"
+#include "nokia5110_LCD.h"
+#include <stdlib.h>
+#include <string.h>
+#include <stdbool.h>
+#include <limits.h>
 /*structures*/
 /*Function declaration*/
 void parseString(char *input);
+
+void prepateLCDMessage();
 
 void LED_setColorRGB(uint8_t R, uint8_t G, uint8_t B);
 
