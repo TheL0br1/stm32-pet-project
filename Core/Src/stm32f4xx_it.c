@@ -20,6 +20,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "stm32f4xx_it.h"
+#include "RGB_led.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 /* USER CODE END Includes */
@@ -42,6 +43,8 @@
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
 extern int8_t i;
+extern uint8_t LedMode;
+
 
 
 
@@ -60,6 +63,7 @@ extern int8_t i;
 /* External variables --------------------------------------------------------*/
 extern DMA_HandleTypeDef hdma_adc1;
 extern TIM_HandleTypeDef htim2;
+extern TIM_HandleTypeDef htim3;
 extern UART_HandleTypeDef huart1;
 /* USER CODE BEGIN EV */
 
@@ -204,7 +208,35 @@ void SysTick_Handler(void)
 /**
   * @brief This function handles TIM2 global interrupt.
   */
+void TIM2_IRQHandler(void) {
+    /* USER CODE BEGIN TIM2_IRQn 0 */
 
+    /* USER CODE END TIM2_IRQn 0 */
+    HAL_TIM_IRQHandler(&htim2);
+    /* USER CODE BEGIN TIM2_IRQn 1 */
+
+    /* USER CODE END TIM2_IRQn 1 */
+}
+
+/**
+  * @brief This function handles TIM3 global interrupt.
+  */
+void TIM3_IRQHandler(void) {
+    /* USER CODE BEGIN TIM3_IRQn 0 */
+    switch (LedMode) {
+        case 0:
+            LED_pulseMode();
+            break;
+        case 1:
+            LED_continuousTransformationMode();
+            break;
+    }
+    /* USER CODE END TIM3_IRQn 0 */
+    HAL_TIM_IRQHandler(&htim3);
+    /* USER CODE BEGIN TIM3_IRQn 1 */
+
+    /* USER CODE END TIM3_IRQn 1 */
+}
 
 /**
   * @brief This function handles USART1 global interrupt.

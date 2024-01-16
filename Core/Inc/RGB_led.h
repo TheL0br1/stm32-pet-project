@@ -9,11 +9,14 @@
 #include "colors.h"
 /*structures*/
 /*Function declaration*/
-void parse_string(char *input);
+void parseString(char *input);
 
 void LED_setColorRGB(uint8_t R, uint8_t G, uint8_t B);
 
 void LED_setColor(enum Color color);
 
+void LED_continuousTransformationMode();
+
+void LED_pulseMode();
 
 #endif //LED_PROJECT_RGB_LED_H
