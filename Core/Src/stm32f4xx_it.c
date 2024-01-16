@@ -43,7 +43,7 @@
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
 extern uint8_t LedMode;
-extern uint16_t
+extern uint16_t microphone;
 
 
 

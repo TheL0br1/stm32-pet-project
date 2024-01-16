@@ -62,7 +62,8 @@ void parseString(char *input) {
                     HAL_TIM_Base_Start_IT(&htim3);
                     break;
                 case 4:
-
+                    HAL_TIM_Base_Start_IT(&htim3);
+                    break;
             }
         }
         default:
