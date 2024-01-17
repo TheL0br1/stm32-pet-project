@@ -20,9 +20,10 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "stm32f4xx_it.h"
-#include "RGB_led.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "RGB_led.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -45,7 +46,7 @@
 extern uint8_t LedMode;
 extern int16_t microphoneValue;
 extern uint8_t displayMode;
-
+extern ADC_HandleTypeDef hadc1;
 
 
 /* USER CODE END PV */
@@ -65,8 +66,6 @@ extern DMA_HandleTypeDef hdma_adc1;
 extern TIM_HandleTypeDef htim2;
 extern TIM_HandleTypeDef htim3;
 extern UART_HandleTypeDef huart1;
-extern ADC_HandleTypeDef hadc1;
-
 /* USER CODE BEGIN EV */
 
 /* USER CODE END EV */

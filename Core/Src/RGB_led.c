@@ -16,7 +16,7 @@
 #define ARR_DIV 2.55
 #define ARR_1SECOND_VALUE 100
 #define CCR_MAX_VALUE 100
-#define ADC_NOISE_VALUE 2070
+#define ADC_NOISE_VALUE 2100
 #define ADC_DIV 1
 
 
