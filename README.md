@@ -125,7 +125,7 @@ Enables display that show the RGB format of current color
 
 ## 🖥️ Used software
 
-- U can use whatever ide you like for writing code, i prefer JetBrains product aka CLion because it has great code
+- You can use whatever ide you like for writing code, i prefer JetBrains product aka CLion because it has great code
   editor with amazing features and gorgeous design.
 - For uploading and debugging STM32 i like STM32CubeIDE that provides amazing capabilities for Embedded developers.
 - Also STM32CubeMX saves a lot of time at configuration
