@@ -19,7 +19,7 @@ You can change your led and display mode by following messages:
 #### PulseMode
 
 ```bash
- m0;*{param1}*;*{param2}*
+ m0;{param1};{param2}
  ```
 
 Changes the color of the led to *{param1}* (see the table of int to color below); the color decreases in brightness
@@ -28,7 +28,7 @@ until it disappears completely in *{param2}* seconds
 ### ContinuousTransformationMode
 
 ```bash
- m1;*{param1}*
+ m1;{param1}
  ```
 
 Iterating through colors with decreases in brightness until it disappears completely in *{param1}* seconds
@@ -36,7 +36,7 @@ Iterating through colors with decreases in brightness until it disappears comple
 ### ContinuousColorChangeMode
 
 ```bash
- m2;*{param1}*
+ m2;{param1}
  ```
 
 Iterating through colors list changing it every *{param1}*
@@ -44,7 +44,7 @@ Iterating through colors list changing it every *{param1}*
 ### RandomColorMode
 
  ```bash
- m3;*{param1}*
+ m3;{param1}
  ```
 
 Randomly change color every *{param1}* seconds
@@ -52,7 +52,7 @@ Randomly change color every *{param1}* seconds
 ### MicrophoneMode
 
  ```bash
- m4;*{param1}*;*{param2}*
+ m4;{param1};{param2}
  ```
 
 Color set to *{param1}*. Color brightness depends on the volume around the device. Color brightness changes every
@@ -61,7 +61,7 @@ Color set to *{param1}*. Color brightness depends on the volume around the devic
 ### Simple color
 
 ```bash
- *{param1}*;*{param2}*;*{param3}*
+ {param1};{param2};{param3}
  ```
 
 Color set to these 3 parametrs using RGB format
