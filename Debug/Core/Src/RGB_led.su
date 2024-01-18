@@ -1,0 +1,10 @@
+../Core/Src/RGB_led.c:33:6:update_arr	16	static
+../Core/Src/RGB_led.c:40:6:parseString	24	static
+../Core/Src/RGB_led.c:116:6:LED_setColorRGB	16	static
+../Core/Src/RGB_led.c:124:6:LED_setColor	24	static
+../Core/Src/RGB_led.c:132:6:LED_pulseMode	16	static
+../Core/Src/RGB_led.c:144:6:LED_continuousTransformationMode	16	static
+../Core/Src/RGB_led.c:158:6:LED_continuousColorChangeMode	16	static
+../Core/Src/RGB_led.c:172:6:LED_randomColorMode	8	static
+../Core/Src/RGB_led.c:184:6:LED_microphoneMode	56	static
+../Core/Src/RGB_led.c:199:6:prepateLCDMessage	40	static
