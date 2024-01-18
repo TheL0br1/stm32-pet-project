@@ -101,8 +101,6 @@ struct LCD_GPIO{
 void LCD_setRST(GPIO_TypeDef* PORT, uint16_t PIN);
 void LCD_setCE(GPIO_TypeDef* PORT, uint16_t PIN);
 void LCD_setDC(GPIO_TypeDef* PORT, uint16_t PIN);
-void LCD_setDIN(GPIO_TypeDef* PORT, uint16_t PIN);
-void LCD_setCLK(GPIO_TypeDef* PORT, uint16_t PIN);
 
 /*----- Library Functions -----*/
 void LCD_send(uint8_t val);

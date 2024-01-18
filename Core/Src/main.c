@@ -124,9 +124,8 @@ int main(void)
     LCD_setRST(GPIOC, GPIO_PIN_4);
     LCD_setCE(GPIOC, GPIO_PIN_5);
     LCD_setDC(GPIOB, GPIO_PIN_0);
-    LCD_setDIN(GPIOA, GPIO_PIN_7);
-    LCD_setCLK(GPIOA, GPIO_PIN_5);
     LCD_init();
+    LCD_print("hello", 4, 3);
     srand(0);
     /* USER CODE END 2 */
 
@@ -257,7 +256,7 @@ static void MX_SPI1_Init(void) {
     hspi1.Init.Mode = SPI_MODE_MASTER;
     hspi1.Init.Direction = SPI_DIRECTION_2LINES;
     hspi1.Init.DataSize = SPI_DATASIZE_8BIT;
-    hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
+    hspi1.Init.CLKPolarity = SPI_POLARITY_HIGH;
     hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
     hspi1.Init.NSS = SPI_NSS_SOFT;
     hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_2;

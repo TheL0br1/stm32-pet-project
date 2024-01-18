@@ -2,6 +2,7 @@
 
 struct LCD_att lcd;
 struct LCD_GPIO lcd_gpio;
+extern SPI_HandleTypeDef hspi1;
 
 
 /*----- GPIO Functions -----*/
@@ -24,31 +25,23 @@ void LCD_setDC(GPIO_TypeDef* PORT, uint16_t PIN){
 	lcd_gpio.DCPORT = PORT;
 	lcd_gpio.DCPIN = PIN;
 }
-void LCD_setDIN(GPIO_TypeDef* PORT, uint16_t PIN){
-	lcd_gpio.DINPORT = PORT;
-	lcd_gpio.DINPIN = PIN;
-}
-
-void LCD_setCLK(GPIO_TypeDef* PORT, uint16_t PIN){
-	lcd_gpio.CLKPORT = PORT;
-	lcd_gpio.CLKPIN = PIN;
-}
-
 /*----- Library Functions -----*/
 
 /*
  * @brief Send information to the LCD using configured GPIOs
  * @param val: value to be sent
  */
-void LCD_send(uint8_t val){
-  uint8_t i;
+void LCD_send(uint8_t val) {
+    HAL_GPIO_WritePin(lcd_gpio.DCPORT, lcd_gpio.DCPIN, GPIO_PIN_SET);
 
-  for(i = 0; i < 8; i++){
-    HAL_GPIO_WritePin(lcd_gpio.DINPORT, lcd_gpio.DINPIN, !!(val & (1 << (7 - i))));
-    HAL_GPIO_WritePin(lcd_gpio.CLKPORT, lcd_gpio.CLKPIN, GPIO_PIN_SET);
-    HAL_GPIO_WritePin(lcd_gpio.CLKPORT, lcd_gpio.CLKPIN, GPIO_PIN_RESET);
-  }
+    HAL_GPIO_WritePin(lcd_gpio.CEPORT, lcd_gpio.CEPIN, GPIO_PIN_RESET);
+
+    HAL_SPI_Transmit(&hspi1, &val, 1, HAL_MAX_DELAY);
+
+    // Установка сигнала CE после передачи данных
+    HAL_GPIO_WritePin(lcd_gpio.CEPORT, lcd_gpio.CEPIN, GPIO_PIN_SET);
 }
+
 
 /*
  * @brief Writes some data into the LCD
